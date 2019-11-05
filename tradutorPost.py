@@ -3,9 +3,33 @@ variavel={}
 estadoInicial=0
 estadoAceite=[]
 estadoRegeita=[]
-regras={}
+regras=[]
 estadoAtual=0
 palavra=0
+regrasMaquinaTuring=[]
+import math
+
+def imprimir():
+    global estados,estadoInicial,estadoAceite,estadoRegeita, regras
+    print("\nEstados: " + str(estados))
+    print("\nEstados Inicial: " + str(estadoInicial))
+    print("\nEstados Aceite : " + str(estadoAceite))
+    print("\nEstados Rejeição : " + str(estadoRegeita))
+    print("\nEstados Regras : " + str(regras))
+    
+def imprTuring():
+    global estados,estadoInicial,estadoAceite,estadoRegeita, regras
+    print("EstadoAtual | Variave Ligo | Proximo Estado | Simobolo escrito |Movimento")
+    for est in estados:
+        for reg in regras:
+            if(est==reg[0]):
+                if(estados[est][0]=="R"):
+                    if(estados[est][0]=="R"):
+                        print("("+est+","+reg[1]+",")
+                if(estados[est][0]=="A"):
+                    print("("+est+","+"")
+        
+        
 
 def converterd_b(n,elemento):
     binario = ""
@@ -15,9 +39,11 @@ def converterd_b(n,elemento):
         if n == 0:
             break
     binario = binario[::-1]
-    print(len(binario));
+    elem=int(math.log(elemento)/math.log(2))
+    if(elemento%2):
+        elem=elem+1
     while True:
-        if(len(binario)>elemento):
+        if(len(binario)>elem):
             break
         else:
             binario=str('0')+binario
@@ -25,10 +51,36 @@ def converterd_b(n,elemento):
     #print(binario)
     return binario
 
-def arquivo():
-    global estados,estadoInicial,estadoAceite, regras,
-    #for 
-
+def letras():
+    global estados,estadoInicial,estadoAceite,estadoRegeita, regras
+    if(len(estados)>len(variavel)):
+        valor=len(estados)
+    else:
+        valor=len(variavel)
+    est={}
+    for indx, name in enumerate(estados):
+        est['q'+str(converterd_b(name,valor))]=estados[name]
+    estados=est
+    estadoInicial=['q'+str(converterd_b(0,valor))]
+    estAceito=[]
+    for indx, name in enumerate(estadoAceite):
+        estAceito.append('q'+str(converterd_b(name,valor)))
+    estadoAceite=estAceito
+    estReg=[]    
+    for indx, name in enumerate(estadoRegeita):
+        estReg.append('q'+str(converterd_b(name,valor)))
+    estadoRegeita=estReg
+    novaReg=[]
+    for indx, name in enumerate(regras):
+        regr=[]
+        regr.append('q'+str(converterd_b(name[0],valor)))
+        regr.append('a'+str(converterd_b(name[1],valor)))
+        regr.append('q'+str(converterd_b(name[2],valor)))
+        if(len(name)>3):
+            regr.append('a'+str(converterd_b(name[3],valor)))
+        novaReg.append(regr)
+    regras=novaReg
+        
 def leituraArquivo():
     global estados,estadoInicial,estadoAceite, regras, estadoAtual, palavra,variavel
     bloco = open('teste.txt', 'r')
@@ -51,7 +103,7 @@ def leituraArquivo():
                  v=False
         if(v):
             estados[len(estados)]=val
-            estadoAceite.append(len(estados)-1)
+            estadoRegeita.append(len(estados)-1)
     while True:
         linha=bloco.readline().rstrip("\n\r")
         if(linha.find(' ')!=-1):
@@ -113,9 +165,13 @@ def leituraArquivo():
                     reg[1]=len(variavel)-1
             else:
                 print("errro  nas regras");
-            regras[len(regras)]=reg        
+            regras.append(reg)        
         else:
             palavra=linha
             break
     
 leituraArquivo()
+imprimir()
+letras()
+imprimir()
+imprTuring()
