@@ -1,0 +1,1 @@
+from tradutorPos2 import *
