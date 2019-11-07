@@ -160,19 +160,19 @@ def turring ():
       variavel[len(variavel)]=""
       branco=len(variavel)
     for regPost in regras:
-	    if(regPost[1]==''):
-		    regr.append([regPost[0],regPost[2],regPost[3],regPost[2],'d'])
-	    elif(regPost[1]=='d'):
-		    regr.append([regPost[0],regPost[2],regPost[3],branco,'d'])
-	    elif(regPost[1]=='i'):
-		    for var in varTuring:
-		        regr.append([regPost[0],var,regPost[0],branco,'d'])
-          novoEst=(len(estados))-1
-          estados[novoEst]="est"+str(novoEst)
-		    regr.append([regPost[0],branco,novoEst,regPost[2],'e'])
-		    for var in varTuring:
-		        regr.append([novoEst,var,regPost[3],branco,'e'])
-       
+        if(regPost[1]==''):
+            regr.append([regPost[0],regPost[2],regPost[3],regPost[2],'d'])
+        elif(regPost[1]=='d'):
+            regr.append([regPost[0],regPost[2],regPost[3],branco,'d'])
+        elif(regPost[1]=='i'):
+            for var in varTuring:
+                regr.append([regPost[0],var,regPost[0],branco,'d'])
+            novoEst=(len(estados))-1
+            estados[novoEst]="est"+str(novoEst)
+            regr.append([regPost[0],branco,novoEst,regPost[2],'e'])
+            for var in varTuring:
+                regr.append([novoEst,var,regPost[3],branco,'e'])
+    print(variavel)
     print(estados)
     for r in regr:
       print(r)
