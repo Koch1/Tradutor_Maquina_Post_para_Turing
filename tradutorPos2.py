@@ -19,20 +19,20 @@ def imprimir():
     print("\nEstados Aceite : " + str(estadoAceite))
     print("\nEstados Rejeição : " + str(estadoRejeita))
     print("\nEstados Regras : " + str(regras))
-    print("\nEstados Regras : " + str(estTuring))
+    print("\nEstados Regras : " + str(regrasTuring))
     
 def imprTuring():
-    global estados,estadoInicial,estadoAceite,estadoRejeita, regras
+    global estados,estadoInicial,estadoAceite,estadoRejeita, regras,regrasTuring,variavel
+    print("Tabela Traducao Estados:")
+    for indx, name in enumerate(estados):
+      print(name+"|"+estados[name])
+    print("Tabela Traducao Variavel:")
+    for indx, name in enumerate(variavel):
+      print(name+"|"+variavel[name])
     print("EstadoAtual | Variave Ligo | Proximo Estado | Simobolo escrito |Movimento")
-    for est in estados:
-        for reg in regras:
-            if(est==reg[0]):
-                if(estados[est][0]=="R"):
-                    if(estados[est][0]=="R"):
-                        print("("+est+","+reg[1]+",")
-                if(estados[est][0]=="A"):
-                    print("("+est+","+"")
-        
+    for reg in regrasTuring:
+      print("("+reg[0]+","+reg[1]+","+reg[2]+","+reg[3]+","+reg[4]+")")
+              
         
 
 def converterd_b(n,elemento):
@@ -63,36 +63,37 @@ def letras():
         valor=len(variavel)
     est={}
     for indx, name in enumerate(estados):
-        est['q'+str(converterd_b(name,valor))]=estados[name]
+        est['q'+str(converterd_b(name,(len(estados))))]=estados[name]
     estados=est
     var={}
     for indx, name in enumerate(variavel):
-        var['a'+str(converterd_b(name,valor))]=variavel[name]
+        var['a'+str(converterd_b(name,len(variavel)))]=variavel[name]
     variavel=var
     estadoInicial=['q'+str(converterd_b(0,valor))]
     estAceito=[]
     for indx, name in enumerate(estadoAceite):
-        estAceito.append('q'+str(converterd_b(name,valor)))
+        estAceito.append('q'+str(converterd_b(name,(len(estados)))))
     estadoAceite=estAceito
     estReg=[]    
     for indx, name in enumerate(estadoRejeita):
-        estReg.append('q'+str(converterd_b(name,valor)))
+        estReg.append('q'+str(converterd_b(name,(len(estados)))))
     estadoRejeita=estReg
     novaReg=[]
     for indx, name in enumerate(regras):
         regr=[]
-        regr.append('q'+str(converterd_b(name[0],valor)))
-        regr.append('a'+str(converterd_b(name[2],valor)))
-        regr.append('q'+str(converterd_b(name[3],valor)))
+        regr.append('q'+str(converterd_b(name[0],(len(estados)))))
+        regr.append('a'+str(converterd_b(name[2],len(variavel))))
+        regr.append('q'+str(converterd_b(name[3],(len(estados)))))
         novaReg.append(regr)
     regras=novaReg
     novaReg=[]
     for indx, name in enumerate(regrasTuring):
         regr=[]
-        regr.append('q'+str(converterd_b(name[0],valor)))
-        regr.append('a'+str(converterd_b(name[1],valor)))
-        regr.append('q'+str(converterd_b(name[2],valor)))
-        regr.append('a'+str(converterd_b(name[3],valor)))
+        regr.append('q'+str(converterd_b(name[0],(len(estados)))))
+        regr.append('a'+str(converterd_b(name[1],len(variavel))))
+        regr.append('q'+str(converterd_b(name[2],(len(estados)))))
+        regr.append('a'+str(converterd_b(name[3],len(variavel))))
+        regr.append(name[4])
         novaReg.append(regr)
     regrasTuring=novaReg
         
@@ -177,12 +178,12 @@ def turring ():
             regr.append([regPost[0],regPost[2],regPost[3],branco,'d'])
         elif(regPost[1]=='i'):
             for var in varTuring:
-                regr.append([regPost[0],var,regPost[0],branco,'d'])
+                regr.append([regPost[0],var,regPost[0],var,'d'])
             novoEst=(len(estados))-1
             estados[novoEst]="est"+str(novoEst)
             regr.append([regPost[0],branco,novoEst,regPost[2],'e'])
             for var in varTuring:
-                regr.append([novoEst,var,regPost[3],branco,'e'])
+                regr.append([novoEst,var,regPost[3],var,'e'])
     print(varTuring)
     print(estados)
     regrasTuring=regr
@@ -193,4 +194,4 @@ imprimir()
 turring ()
 letras()
 imprimir()
-#imprTuring()
+imprTuring()
