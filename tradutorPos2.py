@@ -19,6 +19,7 @@ def imprimir():
     print("\nEstados Aceite : " + str(estadoAceite))
     print("\nEstados Rejeição : " + str(estadoRejeita))
     print("\nEstados Regras : " + str(regras))
+    print("\nEstados Regras : " + str(estTuring))
     
 def imprTuring():
     global estados,estadoInicial,estadoAceite,estadoRejeita, regras
@@ -43,7 +44,7 @@ def converterd_b(n,elemento):
             break
     binario = binario[::-1]
     elem=int(math.log(elemento)/math.log(2))
-    if(elemento%2):
+    if(((math.log(elemento)/math.log(2))-(elem))>0):
         elem=elem+1
     while True:
         if(len(binario)>elem):
@@ -55,7 +56,7 @@ def converterd_b(n,elemento):
     return binario
 #Traduz is estados para binario
 def letras():
-    global estados,estadoInicial,estadoAceite,estadoRejeita, regras
+    global estados,estadoInicial,estadoAceite,estadoRejeita, regras,variavel,regrasTuring
     if(len(estados)>len(variavel)):
         valor=len(estados)
     else:
@@ -67,7 +68,7 @@ def letras():
     var={}
     for indx, name in enumerate(variavel):
         var['a'+str(converterd_b(name,valor))]=variavel[name]
-    variavel=val
+    variavel=var
     estadoInicial=['q'+str(converterd_b(0,valor))]
     estAceito=[]
     for indx, name in enumerate(estadoAceite):
@@ -85,6 +86,15 @@ def letras():
         regr.append('q'+str(converterd_b(name[3],valor)))
         novaReg.append(regr)
     regras=novaReg
+    novaReg=[]
+    for indx, name in enumerate(regrasTuring):
+        regr=[]
+        regr.append('q'+str(converterd_b(name[0],valor)))
+        regr.append('a'+str(converterd_b(name[1],valor)))
+        regr.append('q'+str(converterd_b(name[2],valor)))
+        regr.append('a'+str(converterd_b(name[3],valor)))
+        novaReg.append(regr)
+    regrasTuring=novaReg
         
 def leituraArquivo():
     global estados,estadoInicial,estadoAceite, regras, estadoAtual, palavra,variavel
@@ -155,7 +165,8 @@ def turring ():
     for bra in variavel:
       if(variavel[bra]==''):
           branco=bra
-      varTuring.append(bra)
+      else:
+        varTuring.append(bra)
     if(branco==-1):
       variavel[len(variavel)]=""
       branco=len(variavel)
@@ -172,13 +183,14 @@ def turring ():
             regr.append([regPost[0],branco,novoEst,regPost[2],'e'])
             for var in varTuring:
                 regr.append([novoEst,var,regPost[3],branco,'e'])
-    print(variavel)
+    print(varTuring)
     print(estados)
+    regrasTuring=regr
     for r in regr:
       print(r)
 leituraArquivo()
 imprimir()
 turring ()
-#letras()
-#imprimir()
+letras()
+imprimir()
 #imprTuring()
