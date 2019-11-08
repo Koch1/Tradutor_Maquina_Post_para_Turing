@@ -25,13 +25,13 @@ def imprTuring():
     global estados,estadoInicial,estadoAceite,estadoRejeita, regras,regrasTuring,variavel
     print("Tabela Traducao Estados:")
     for indx, name in enumerate(estados):
-      print(name+"|"+estados[name])
+      print(str(name)+"|"+estados[name])
     print("Tabela Traducao Variavel:")
     for indx, name in enumerate(variavel):
-      print(name+"|"+variavel[name])
+      print(str(name)+"|"+variavel[name])
     print("EstadoAtual | Variave Ligo | Proximo Estado | Simobolo escrito |Movimento")
     for reg in regrasTuring:
-      print("("+reg[0]+","+reg[1]+","+reg[2]+","+reg[3]+","+reg[4]+")")
+      print("("+str(reg[0])+","+str(reg[1])+","+str(reg[2])+","+str(reg[3])+","+str(reg[4])+")")
               
         
 
@@ -47,7 +47,7 @@ def converterd_b(n,elemento):
     if(((math.log(elemento)/math.log(2))-(elem))>0):
         elem=elem+1
     while True:
-        if(len(binario)>elem):
+        if(len(binario)>=elem):
             break
         else:
             binario=str('0')+binario
@@ -111,7 +111,7 @@ def leituraArquivo():
                  estadoAceite.append(est)
                  v=False
         if(v):
-            estados[len(estados)]=val
+            estados[len(estados)]=val.strip()
             estadoAceite.append(len(estados)-1)
  #tercerira linha   q0001,q0111
     for  val in bloco.readline().rstrip("\n\r").split(","):
@@ -121,7 +121,7 @@ def leituraArquivo():
                  estadoRejeita.append(est)
                  v=False
         if(v):
-            estados[len(estados)]=val
+            estados[len(estados)]=val.strip()
             estadoRejeita.append(len(estados)-1)
 #quartro ou mais
     while True:
@@ -139,10 +139,10 @@ def leituraArquivo():
                         reg[3]=est
                         v2=False
                 if(v1):
-                    estados[len(estados)]=reg[0]
+                    estados[len(estados)]=reg[0].strip()
                     reg[0]=len(estados)-1
                 if(v2):
-                    estados[len(estados)]=reg[3]
+                    estados[len(estados)]=reg[3].strip()
                     reg[3]=len(estados)-1
                 v1=True
                 for var in variavel:
