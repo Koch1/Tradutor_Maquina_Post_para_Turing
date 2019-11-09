@@ -183,7 +183,8 @@ def turring ():
             estados[novoEst]="est"+str(novoEst)
             regr.append([regPost[0],branco,novoEst,regPost[2],'e'])
             for var in varTuring:
-                regr.append([novoEst,var,regPost[3],var,'e'])
+                regr.append([novoEst,var,novoEst,var,'e'])
+            regr.append([novoEst,branco,regPost[3],branco,'d'])
     print(varTuring)
     print(estados)
     regrasTuring=regr
