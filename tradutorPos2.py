@@ -25,13 +25,13 @@ def imprTuring():
     global estados,estadoInicial,estadoAceite,estadoRejeita, regras,regrasTuring,variavel
     print("Tabela Traducao Estados:")
     for indx, name in enumerate(estados):
-      print(name+"|"+estados[name])
+      print(str(name)+"|"+estados[name])
     print("Tabela Traducao Variavel:")
     for indx, name in enumerate(variavel):
-      print(name+"|"+variavel[name])
+      print(str(name)+"|"+variavel[name])
     print("EstadoAtual | Variave Ligo | Proximo Estado | Simobolo escrito |Movimento")
     for reg in regrasTuring:
-      print("("+reg[0]+","+reg[1]+","+reg[2]+","+reg[3]+","+reg[4]+")")
+      print("("+str(reg[0])+","+str(reg[1])+","+str(reg[2])+","+str(reg[3])+","+str(reg[4])+")")
               
         
 
@@ -192,6 +192,6 @@ def turring ():
 leituraArquivo()
 imprimir()
 turring ()
-letras()
+#letras()
 imprimir()
 imprTuring()
