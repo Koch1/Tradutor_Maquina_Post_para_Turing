@@ -104,25 +104,25 @@ def leituraArquivo():
   #primeira linha
     estados[len(estados)]=bloco.readline().rstrip("\n\r")
   #segunda linha  q0001,q0111
-    for val in bloco.readline().rstrip("\n\r").split(","):
-        v=True
-        for est in estados:
-            if(val==estados[est]):
-                 estadoAceite.append(est)
-                 v=False
-        if(v):
-            estados[len(estados)]=val.strip()
-            estadoAceite.append(len(estados)-1)
+#    for val in bloco.readline().rstrip("\n\r").split(","):
+#        v=True
+#        for est in estados:
+#            if(val==estados[est]):
+#                 estadoAceite.append(est)
+#                 v=False
+#        if(v):
+#            estados[len(estados)]=val.strip()
+#            estadoAceite.append(len(estados)-1)
  #tercerira linha   q0001,q0111
-    for  val in bloco.readline().rstrip("\n\r").split(","):
-        v=True
-        for est in estados:
-            if(val==estados[est]):
-                 estadoRejeita.append(est)
-                 v=False
-        if(v):
-            estados[len(estados)]=val.strip()
-            estadoRejeita.append(len(estados)-1)
+#    for  val in bloco.readline().rstrip("\n\r").split(","):
+#        v=True
+#        for est in estados:
+#            if(val==estados[est]):
+#                 estadoRejeita.append(est)
+#                 v=False
+#        if(v):
+#            estados[len(estados)]=val.strip()
+#            estadoRejeita.append(len(estados)-1)
 #quartro ou mais
     while True:
         linha=bloco.readline().rstrip("( \n \r )").rstrip("(").replace("(","")
@@ -155,9 +155,9 @@ def leituraArquivo():
             else:
                 print("errro  nas regras");
             regras.append(reg)        
-        else:
-            palavra=linha
-            break
+#        else:
+#            palavra=linha
+#            break
 def turring ():
     global estados,estadoInicial,estadoAceite,estadoRejeita, regras,regrasTuring,varTuring,estTuring
     regr=[]
@@ -183,8 +183,7 @@ def turring ():
             estados[novoEst]="est"+str(novoEst)
             regr.append([regPost[0],branco,novoEst,regPost[2],'e'])
             for var in varTuring:
-                regr.append([novoEst,var,novoEst,var,'e'])
-            regr.append([novoEst,branco,regPost[3],branco,'d'])
+                regr.append([novoEst,var,regPost[3],var,'e'])
     print(varTuring)
     print(estados)
     regrasTuring=regr
