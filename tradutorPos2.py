@@ -3,8 +3,7 @@ estTuring={}
 variavel={}
 varTuring={}
 estadoInicial=0
-estadoAceite=[]
-estadoRejeita=[]
+estadoParada=[]
 regras=[]
 regrasTuring=[]
 estadoAtual=0
@@ -12,17 +11,16 @@ palavra=0
 import math
 
 def imprimir():
-    global estados,estadoInicial,estadoAceite,estadoRejeita, regras
+    global estados,estadoInicial,estadoParada, regras
     print("\nEstados: " + str(estados))
     print("\nVariavel: " + str(variavel))
     print("\nEstados Inicial: " + str(estadoInicial))
-    print("\nEstados Aceite : " + str(estadoAceite))
-    print("\nEstados Rejeição : " + str(estadoRejeita))
+    print("\nEstados Parada : " + str(estadoParada))
     print("\nEstados Regras : " + str(regras))
     print("\nEstados Regras : " + str(regrasTuring))
     
 def imprTuring():
-    global estados,estadoInicial,estadoAceite,estadoRejeita, regras,regrasTuring,variavel
+    global estados,estadoInicial,estadoParada,regras,regrasTuring,variavel
     print("Tabela Traducao Estados:")
     for indx, name in enumerate(estados):
       print(str(name)+"|"+estados[name])
@@ -56,7 +54,7 @@ def converterd_b(n,elemento):
     return binario
 #Traduz is estados para binario
 def letras():
-    global estados,estadoInicial,estadoAceite,estadoRejeita, regras,variavel,regrasTuring
+    global estados,estadoInicial,estado, regras,variavel,regrasTuring
     if(len(estados)>len(variavel)):
         valor=len(estados)
     else:
@@ -70,14 +68,10 @@ def letras():
         var['a'+str(converterd_b(name,len(variavel)))]=variavel[name]
     variavel=var
     estadoInicial=['q'+str(converterd_b(0,valor))]
-    estAceito=[]
-    for indx, name in enumerate(estadoAceite):
-        estAceito.append('q'+str(converterd_b(name,(len(estados)))))
-    estadoAceite=estAceito
-    estReg=[]    
-    for indx, name in enumerate(estadoRejeita):
-        estReg.append('q'+str(converterd_b(name,(len(estados)))))
-    estadoRejeita=estReg
+    estParada=[]
+    for indx, name in enumerate(estadoParada):
+        estParada.append('q'+str(converterd_b(name,(len(estados)))))
+    estadoParada=estParada
     novaReg=[]
     for indx, name in enumerate(regras):
         regr=[]
@@ -98,32 +92,24 @@ def letras():
     regrasTuring=novaReg
         
 def leituraArquivo():
-    global estados,estadoInicial,estadoAceite, regras, estadoAtual, palavra,variavel
+    global estados,estadoInicial,estadoParada, regras, estadoAtual,variavel
     bloco = open('novoCodigo.txt', 'r')
     #estados=bloco.readline().rstrip("\n\r").split(" ")
   #primeira linha
     estados[len(estados)]=bloco.readline().rstrip("\n\r")
-##  #segunda linha  q0001,q0111
-##    for val in bloco.readline().rstrip("\n\r").split(","):
-##        v=True
-##        for est in estados:
-##            if(val==estados[est]):
-##                 estadoAceite.append(est)
-##                 v=False
-##        if(v):
-##            estados[len(estados)]=val.strip()
-##            estadoAceite.append(len(estados)-1)
-## #tercerira linha   q0001,q0111
-##    for  val in bloco.readline().rstrip("\n\r").split(","):
-##        v=True
-##        for est in estados:
-##            if(val==estados[est]):
-##                 estadoRejeita.append(est)
-##                 v=False
-##        if(v):
-##            estados[len(estados)]=val.strip()
-##            estadoRejeita.append(len(estados)-1)
-#quartro ou mais
+#  #segunda linha,  estado de parada
+    #split quebra linha na restrição e strip tira o espaco
+    for val in bloco.readline().rstrip("\n\r").split(","):
+        v=True
+        for est in estados:
+            if(val.strip()==estados[est]):
+                 estadoParada.append(est)
+                 v=False
+        if(v):
+            estados[len(estados)]=val.strip()
+            estadoParada.append(len(estados)-1)
+
+#quartro ou mais.  leitura das regras
     while True:
         linha=bloco.readline().rstrip("( \n \r )").rstrip("(").replace("(","")
         if(linha.find(',')!=-1):
@@ -131,6 +117,7 @@ def leituraArquivo():
             if(len(reg)==4):
                 v1=True
                 v2=True
+                # veriffica se tem um estados da regras   ja na lista
                 for est in estados:
                     if(reg[0]==estados[est]):
                         reg[0]=est
@@ -138,6 +125,7 @@ def leituraArquivo():
                     if(reg[3]==estados[est]):
                         reg[3]=est
                         v2=False
+                #adiciona o estado  caso ele n tenha lista
                 if(v1):
                     estados[len(estados)]=reg[0].strip()
                     reg[0]=len(estados)-1
@@ -156,9 +144,10 @@ def leituraArquivo():
                 print("errro  nas regras");
             regras.append(reg)        
         else:
+            #para leitura do arquivo
             break
 def turring ():
-    global estados,estadoInicial,estadoAceite,estadoRejeita, regras,regrasTuring,varTuring,estTuring
+    global estados,estadoInicial,estadoParada,regras,regrasTuring,varTuring,estTuring
     regr=[]
     branco=-1
     varTuring=[]
@@ -172,26 +161,37 @@ def turring ():
       branco=len(variavel)
     for regPost in regras:
         if(regPost[1]==''):
-            regr.append([regPost[0],regPost[2],regPost[3],regPost[2],'d'])
+            if(regPost[3] in estadoParada):
+                regr.append([regPost[0],regPost[2],regPost[3],regPost[2],'f'])
+            else:
+                regr.append([regPost[0],regPost[2],regPost[3],regPost[2],'d'])
         elif(regPost[1]=='d'):
-            regr.append([regPost[0],regPost[2],regPost[3],branco,'d'])
+            if (regPost[3] in estadoParada):
+                regr.append([regPost[0],regPost[2],regPost[3],branco,'f'])
+            else:
+                regr.append([regPost[0],regPost[2],regPost[3],branco,'d'])
+
         elif(regPost[1]=='i'):
             for var in varTuring:
                 regr.append([regPost[0],var,regPost[0],var,'d'])
-            novoEst=(len(estados))-1
+            novoEst=(len(estados))
             estados[novoEst]="est"+str(novoEst)
             regr.append([regPost[0],branco,novoEst,regPost[2],'e'])
             for var in varTuring:
                 regr.append([novoEst,var,novoEst,var,'e'])
-            regr.append([novoEst,branco,regPost[3],branco,'d'])
-    print(varTuring)
+            if (regPost[3] in estadoParada):
+                regr.append([novoEst,branco,regPost[3],branco,'f'])
+            else:
+                regr.append([novoEst,branco,regPost[3],branco,'d'])
+
+    print(varTuri'''''''''''''''''ng)
     print(estados)
     regrasTuring=regr
     for r in regr:
       print(r)
 leituraArquivo()
 imprimir()
-turring ()
+turring()
 #letras()
 imprimir()
 imprTuring()
