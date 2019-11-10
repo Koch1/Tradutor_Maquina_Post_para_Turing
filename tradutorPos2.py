@@ -103,26 +103,26 @@ def leituraArquivo():
     #estados=bloco.readline().rstrip("\n\r").split(" ")
   #primeira linha
     estados[len(estados)]=bloco.readline().rstrip("\n\r")
-  #segunda linha  q0001,q0111
-    for val in bloco.readline().rstrip("\n\r").split(","):
-        v=True
-        for est in estados:
-            if(val==estados[est]):
-                 estadoAceite.append(est)
-                 v=False
-        if(v):
-            estados[len(estados)]=val.strip()
-            estadoAceite.append(len(estados)-1)
- #tercerira linha   q0001,q0111
-    for  val in bloco.readline().rstrip("\n\r").split(","):
-        v=True
-        for est in estados:
-            if(val==estados[est]):
-                 estadoRejeita.append(est)
-                 v=False
-        if(v):
-            estados[len(estados)]=val.strip()
-            estadoRejeita.append(len(estados)-1)
+##  #segunda linha  q0001,q0111
+##    for val in bloco.readline().rstrip("\n\r").split(","):
+##        v=True
+##        for est in estados:
+##            if(val==estados[est]):
+##                 estadoAceite.append(est)
+##                 v=False
+##        if(v):
+##            estados[len(estados)]=val.strip()
+##            estadoAceite.append(len(estados)-1)
+## #tercerira linha   q0001,q0111
+##    for  val in bloco.readline().rstrip("\n\r").split(","):
+##        v=True
+##        for est in estados:
+##            if(val==estados[est]):
+##                 estadoRejeita.append(est)
+##                 v=False
+##        if(v):
+##            estados[len(estados)]=val.strip()
+##            estadoRejeita.append(len(estados)-1)
 #quartro ou mais
     while True:
         linha=bloco.readline().rstrip("( \n \r )").rstrip("(").replace("(","")
@@ -156,7 +156,6 @@ def leituraArquivo():
                 print("errro  nas regras");
             regras.append(reg)        
         else:
-            palavra=linha
             break
 def turring ():
     global estados,estadoInicial,estadoAceite,estadoRejeita, regras,regrasTuring,varTuring,estTuring
