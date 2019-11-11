@@ -52,9 +52,10 @@ def converterd_b(n,elemento):
     #binario = int(binario)
     #print(binario)
     return binario
-#Traduz is estados para binario
+
+#Traduz os estados para binario
 def letras():
-    global estados,estadoInicial,estado, regras,variavel,regrasTuring
+    global estados,estadoInicial,estadoParada, regras,variavel,regrasTuring
     if(len(estados)>len(variavel)):
         valor=len(estados)
     else:
@@ -95,21 +96,21 @@ def leituraArquivo():
     global estados,estadoInicial,estadoParada, regras, estadoAtual,variavel
     bloco = open('novoCodigo.txt', 'r')
     #estados=bloco.readline().rstrip("\n\r").split(" ")
-  #primeira linha
+    #primeira linha
     estados[len(estados)]=bloco.readline().rstrip("\n\r")
-#  #segunda linha,  estado de parada
+#  #segunda linha,  estados de parada
     #split quebra linha na restrição e strip tira o espaco
     for val in bloco.readline().rstrip("\n\r").split(","):
-        v=True
+        v = True
         for est in estados:
-            if(val.strip()==estados[est]):
-                 estadoParada.append(est)
-                 v=False
-        if(v):
-            estados[len(estados)]=val.strip()
+            if val.strip()==estados[est]:
+                estadoParada.append(est)
+                v = False
+        if v:
+            estados[len(estados)] = val.strip()
             estadoParada.append(len(estados)-1)
 
-#quartro ou mais.  leitura das regras
+#três ou mais leitura das regras
     while True:
         linha=bloco.readline().rstrip("( \n \r )").rstrip("(").replace("(","")
         if(linha.find(',')!=-1):
@@ -141,12 +142,12 @@ def leituraArquivo():
                     variavel[len(variavel)]=reg[2]
                     reg[2]=len(variavel)-1
             else:
-                print("errro  nas regras");
+                print("erro  nas regras");
             regras.append(reg)        
         else:
             #para leitura do arquivo
             break
-def turring ():
+def turing ():
     global estados,estadoInicial,estadoParada,regras,regrasTuring,varTuring,estTuring
     regr=[]
     branco=-1
@@ -174,24 +175,25 @@ def turring ():
         elif(regPost[1]=='i'):
             for var in varTuring:
                 regr.append([regPost[0],var,regPost[0],var,'d'])
-            novoEst=(len(estados))
+            novoEst = (len(estados))
             estados[novoEst]="est"+str(novoEst)
             regr.append([regPost[0],branco,novoEst,regPost[2],'e'])
             for var in varTuring:
                 regr.append([novoEst,var,novoEst,var,'e'])
-            if (regPost[3] in estadoParada):
+            if regPost[3] in estadoParada:
                 regr.append([novoEst,branco,regPost[3],branco,'f'])
             else:
                 regr.append([novoEst,branco,regPost[3],branco,'d'])
 
-    print(varTuri'''''''''''''''''ng)
+    print(varTuring)
     print(estados)
     regrasTuring=regr
     for r in regr:
-      print(r)
+        print(r)
+
 leituraArquivo()
 imprimir()
-turring()
+turing()
 #letras()
 imprimir()
 imprTuring()
