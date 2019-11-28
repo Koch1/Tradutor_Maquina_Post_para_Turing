@@ -1,4 +1,4 @@
-Parte da saida maquina turing -> Entrada da maquina poste 
+Parte da saida maquina turing -> Entrada da maquina post 
 
 Tabela Traducao Estados: 
 q00000->q0000

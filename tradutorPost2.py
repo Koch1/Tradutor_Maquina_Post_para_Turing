@@ -1,7 +1,7 @@
 estados={}
 estTuring={}
 variavel={}
-varTuring={}
+varTuring={0:''}
 estadoInicial=0
 estadoParada=[]
 regras=[]
@@ -157,9 +157,6 @@ def turing ():
           branco=bra
       else:
         varTuring.append(bra)
-    if(branco==-1):
-      variavel[len(variavel)]=""
-      branco=len(variavel)
     for regPost in regras:
         if(regPost[1]==''):
             if(regPost[3] in estadoParada):
@@ -196,7 +193,7 @@ def criarArquivosTuring ():
   arq.close()
   arq = open('tabelaTraducaoo.txt', 'w')
   texto = []
-  texto.append("Parte da saida maquina turing -> Entrada da maquina poste \n\n")
+  texto.append("Parte da saida maquina turing -> Entrada da maquina post \n\n")
   texto.append("Tabela Traducao Estados: \n")
   for indx, name in enumerate(estados):
       texto.append(str(name)+"->"+estados[name]+"\n")
@@ -212,6 +209,6 @@ leituraArquivo()
 #imprimir()
 turing()
 letras()
-#imprimir()
-#imprTuring()
+imprimir()
+imprTuring()
 criarArquivosTuring()
