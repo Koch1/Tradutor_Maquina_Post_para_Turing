@@ -1,1 +1,1 @@
-from tradutorPos2 import *
+from tradutorPost2 import *

@@ -203,12 +203,10 @@ def criarArquivosTuring ():
   arq.writelines(texto)
   arq.close()
 
-
-
 leituraArquivo()
 #imprimir()
 turing()
 letras()
-imprimir()
-imprTuring()
+#imprimir()
+#imprTuring()
 criarArquivosTuring()
