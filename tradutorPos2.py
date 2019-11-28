@@ -17,7 +17,7 @@ def imprimir():
     print("\nEstado Inicial: " + str(estadoInicial))
     print("\nEstados Parada : " + str(estadoParada))
     print("\nEstados Regras : " + str(regras))
-    print("\nEstados Regras : " + str(regrasTuring))
+    print("\nEstados Regras Turring : " + str(regrasTuring))
     
 def imprTuring():
     global estados,estadoInicial,estadoParada,regras,regrasTuring,variavel
@@ -184,16 +184,34 @@ def turing ():
                 regr.append([novoEst,branco,regPost[3],branco,'f'])
             else:
                 regr.append([novoEst,branco,regPost[3],branco,'d'])
-
-    print(varTuring)
-    print(estados)
     regrasTuring=regr
-    for r in regr:
-        print(r)
+
+def criarArquivosTuring ():
+  global estados,estadoInicial,estadoParada,regras,regrasTuring,varTuring,estTuring
+  arq = open('resultado.txt', 'w')
+  texto = []
+  for reg in regrasTuring:
+      texto.append("("+str(reg[0])+","+str(reg[1])+","+str(reg[2])+","+str(reg[3])+","+str(reg[4])+")\n")
+  arq.writelines(texto)
+  arq.close()
+  arq = open('tabelaTraducaoo.txt', 'w')
+  texto = []
+  texto.append("Parte da saida maquina turing -> Entrada da maquina poste \n\n")
+  texto.append("Tabela Traducao Estados: \n")
+  for indx, name in enumerate(estados):
+      texto.append(str(name)+"->"+estados[name]+"\n")
+  texto.append("\nTabela Traducao Variavel:\n")
+  for indx, name in enumerate(variavel):
+      texto.append(str(name)+"->"+variavel[name]+"\n")
+  arq.writelines(texto)
+  arq.close()
+
+
 
 leituraArquivo()
-imprimir()
+#imprimir()
 turing()
-#letras()
-imprimir()
-imprTuring()
+letras()
+#imprimir()
+#imprTuring()
+criarArquivosTuring()
