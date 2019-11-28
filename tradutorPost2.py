@@ -14,7 +14,7 @@ def imprimir():
     global estados,estadoInicial,estadoParada, regras
     print("\nEstados: " + str(estados))
     print("\nVariavel: " + str(variavel))
-    print("\nEstados Inicial: " + str(estadoInicial))
+    print("\nEstado Inicial: " + str(estadoInicial))
     print("\nEstados Parada : " + str(estadoParada))
     print("\nEstados Regras : " + str(regras))
     print("\nEstados Regras Turring : " + str(regrasTuring))
@@ -27,7 +27,7 @@ def imprTuring():
     print("Tabela Traducao Variavel:")
     for indx, name in enumerate(variavel):
       print(str(name)+"|"+variavel[name])
-    print("EstadoAtual | Variave Ligo | Proximo Estado | Simobolo escrito |Movimento")
+    print("Estado Atual | Variavel Lida | Proximo Estado | Simbolo escrito | Movimento")
     for reg in regrasTuring:
       print("("+str(reg[0])+","+str(reg[1])+","+str(reg[2])+","+str(reg[3])+","+str(reg[4])+")")
               
