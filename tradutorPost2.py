@@ -1,19 +1,19 @@
 import math
 
 # variáveis globais
-estados={} # vetor de estados da MP
-estTuring={} # vetor de estados da MT
-variavel={} # vetor que salva as variáveis lidas
-varTuring={0:''} # vetor que salva as variáveis traduzidas
-estadoInicial=0 # define o estado inicial como 0 sempre
-estadoParada=[] # conjunto dos estados de parada
-regras=[]
-regrasTuring=[]
-estadoAtual=0
-palavra=0
+estados = {}  # vetor de estados da MP
+estTuring = {}  # vetor de estados da MT
+variavel = {}  # vetor que salva as variáveis lidas
+varTuring = {0: ''}  # vetor que salva as variáveis traduzidas
+estadoInicial = 0  # define o estado inicial como 0 sempre
+estadoParada = []  # conjunto dos estados de parada
+regras = []
+regrasTuring = []
+estadoAtual = 0
+palavra = 0
 
 def imprimir():
-    global estados,estadoInicial,estadoParada, regras
+    global estados, estadoInicial, estadoParada, regras
     print("\nEstados: " + str(estados))
     print("\nVariaveis: " + str(variavel))
     print("\nEstado Inicial: " + str(estadoInicial))
@@ -22,7 +22,7 @@ def imprimir():
     print("\nRegras de transição Turing : " + str(regrasTuring))
     
 def imprTuring():
-    global estados,estadoInicial,estadoParada,regras,regrasTuring,variavel
+    global estados, estadoInicial, estadoParada, regras, regrasTuring, variavel
     print("Tabela Traducao Estados:")
     for indx, name in enumerate(estados):
       print(str(name)+"|"+estados[name])
@@ -38,7 +38,7 @@ def imprTuring():
 # função que converte de decimal em binário
 def converterd_b (n,elemento):
     binario = ""
-    while(True):
+    while True :
         binario = binario + str(n % 2)
         n = n//2
         if n == 0:
