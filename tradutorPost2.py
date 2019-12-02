@@ -4,7 +4,7 @@ import math
 estados={} # vetor de estados da MP
 estTuring={} # vetor de estados da MT
 variavel={} # vetor que salva as variáveis lidas
-varTuring={} # vetor que salva as variáveis traduzidas
+varTuring={0:''} # vetor que salva as variáveis traduzidas
 estadoInicial=0 # define o estado inicial como 0 sempre
 estadoParada=[] # conjunto dos estados de parada
 regras=[]
